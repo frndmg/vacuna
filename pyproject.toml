@@ -1,0 +1,35 @@
+[tool.poetry]
+name = "vacuna"
+version = "0.1.0"
+description = "Reusable Lightweight Pythonic Dependency Injection Library"
+authors = ["Fernando Martinez Gonzalez <frndmartinezglez@gmail.com>"]
+readme = "docs/README.md"
+license = "MIT"
+include = ["docs/**/*.md", "examples/**/*.py", "tests/**/*.py"]
+
+[tool.poetry.dependencies]
+python = "^3.7"
+
+mkdocs = {version = "^1.2.2", optional = true}
+mkdocs-material = {version = "^7.2.5", optional = true}
+mkdocstrings = {version = "^0.15.2", optional = true}
+
+[tool.poetry.dev-dependencies]
+pytest-xdist = "^2.3.0"
+pytest-cov = "^2.12.1"
+pytest-clarity = "^1.0.1"
+pytest-sugar = "^0.9.4"
+pytest-benchmark = "^3.4.1"
+pytest-deadfixtures = "^2.2.1"
+isort = "^5.9.3"
+flake8 = "^3.9.2"
+autopep8 = "^1.5.7"
+mypy = "^0.910"
+tox = "^3.24.3"
+
+[tool.poetry.extras]
+docs = ["mkdocs", "mkdocs-material", "mkdocstrings"]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

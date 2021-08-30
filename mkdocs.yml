@@ -1,0 +1,37 @@
+site_name: Vacuna
+site_author: Fernando Martínez González
+repo_url: https://github.com/frndmg/vacuna
+
+nav:
+- Home: README.md
+- Collaborate: COLLABORATE.md
+- Refs: refs.md
+
+theme: material
+
+plugins:
+- search
+- mkdocstrings:
+    default_handler: python
+    handlers:
+      python:
+        rendering:
+          show_signature_annotations: True
+        selection:
+          filters:
+            - "!^_"
+    watch:
+    - vacuna
+    custom_templates: templates
+
+markdown_extensions:
+  - toc:
+      permalink: "#"
+      baselevel: 3
+  - pymdownx.highlight:
+      linenums: true
+  - pymdownx.superfences
+  - pymdownx.snippets
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
