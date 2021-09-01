@@ -43,9 +43,10 @@ class Dependency:
 
 
 class DependencyBuilder:
-    def __init__(self, container: 'Container', kind=FACTORY):
+    def __init__(self, container: 'Container', kind=FACTORY, name=None):
         self.container = container
         self.kind = kind
+        self.name = name
 
     def __call__(self, fn: Callable) -> Lazy:
         dependency = self.build_dependency(fn)
@@ -75,6 +76,8 @@ class DependencyBuilder:
         return dependency
 
     def get_name(self, fn):
+        if self.name is not None:
+            return self.name
         return fn.__name__
 
     def get_dependencies(self, fn):
@@ -101,8 +104,8 @@ class Container:
     def __init__(self):
         self._dependencies = {}  # type: Dict[str, Dependency]
 
-    def dependency(self, kind=FACTORY) -> DependencyBuilder:
-        return DependencyBuilder(self, kind=FACTORY)
+    def dependency(self, kind=FACTORY, name=None) -> DependencyBuilder:
+        return DependencyBuilder(self, kind=kind, name=name)
 
     def run(self, dependency: Dependency):
         dependency()

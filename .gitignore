@@ -17,4 +17,7 @@ site/
 .python-version
 poetry.lock
 
+.vscode/
+*.code-workspace
+
 .DS_Store
