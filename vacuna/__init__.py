@@ -6,10 +6,6 @@ from typing import Callable, Dict
 from .__version__ import __version__
 from .lazy import Lazy, lazy, make_lazy
 
-# from dataclasses import dataclass, field, replace
-# from functools import partial
-
-
 FACTORY = 'factory'
 
 SINGLETON = 'singleton'

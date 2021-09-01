@@ -12,7 +12,7 @@ class Lazy(ABC):
 
     Convert a deferred computation into a lazy object using `make_lazy`.
 
-    Examples
+    Examples:
 
     ```python
     >>> isinstance(make_lazy(lambda: 1), Lazy)

@@ -1,0 +1,46 @@
+name: Upload Python Package and Doc
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+
+    - uses: actions/setup-python@v1
+
+    - name: Install Poetry
+      uses: snok/install-poetry@v1.1.7
+
+    - name: Build and publish
+      run: |
+        poetry config pypi-token.pypi ${{ secrets.PYPI_TOKEN }}
+        poetry publish --build
+
+  docs:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+
+    - uses: actions/setup-python@v1
+
+    - name: Install Poetry
+      uses: snok/install-poetry@v1.1.2
+
+    - name: Install dependencies
+      run: |
+        poetry install -E docs --no-dev
+
+    - name: Publish
+      run: |
+        poetry run mkdocs gh-deploy
