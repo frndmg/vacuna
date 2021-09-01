@@ -8,6 +8,7 @@ dist/
 .tox/
 
 .coverage
+coverage.xml
 htmlcov/
 .benchmarks/
 
