@@ -81,20 +81,18 @@ class DependencyBuilder:
         return fn.__name__
 
     def get_dependencies(self, fn):
-        args, _, _, defaults, *_ = inspect.getfullargspec(fn)
-
-        if defaults is None:
-            defaults = ()
-
-        defaults = (None,) * (len(args) - len(defaults)) + defaults
+        signature = inspect.signature(fn)
 
         dependencies = []
 
-        for arg, default in zip(args, defaults):
-            if default is not None:
+        for parameter in signature.parameters.values():
+            name = parameter.name
+            default = parameter.default
+
+            if default is not inspect._empty:
                 dependencies.append(default)
             else:
-                dependency = self.container.get_dependency(arg)
+                dependency = self.container.get_dependency(name)
                 dependencies.append(dependency)
 
         return dependencies, {}
