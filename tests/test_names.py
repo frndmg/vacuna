@@ -1,12 +1,5 @@
 import pytest
 
-import vacuna
-
-
-@pytest.fixture(autouse=True)
-def container():
-    return vacuna.Container()
-
 
 @pytest.fixture(autouse=True)
 def app(container):
