@@ -1,16 +1,18 @@
 """Small library to work with dependencies in Python"""
 
 import inspect
-from typing import Callable, Dict
+from typing import Callable, Dict, Optional, Tuple
+
+from typing_extensions import Literal
 
 from .__version__ import __version__
-from .lazy import Lazy, lazy, make_lazy
+from .lazy import Lazy, lazy, make_lazy, once
 
-FACTORY = 'factory'
+Kind = Literal['factory', 'singleton', 'resource']
 
-SINGLETON = 'singleton'
-
-RESOURCE = 'resource'
+FACTORY = 'factory'  # type: Kind
+SINGLETON = 'singleton'  # type: Kind
+RESOURCE = 'resource'  # type: Kind
 
 
 class Dependency:
@@ -18,32 +20,31 @@ class Dependency:
         self.name = name
         self.kind = FACTORY
 
-        self.fn = None
-        self.args = None
-        self.kwargs = None
+        self.fn = None  # type: Optional[Callable]
+        self.args = None  # type: Optional[Tuple[Lazy, ...]]
+        self.kwargs = None  # type: Optional[Dict[str, Lazy]]
 
     def validate(self):
         pass
 
-    def set_fn(self, fn):
-        self.fn = lazy(fn)
-
-    def set_args(self, *args: Lazy, **kwargs: Lazy):
+    def set_values(self, fn: Callable, kind: Kind, *args: Lazy, **kwargs: Lazy):
+        self.fn = lazy(fn)  # TODO: do not use lazy here
         self.args = args
         self.kwargs = kwargs
-
-    def set_kind(self, kind: str):
         self.kind = kind
 
-    def to_lazy(self):
-        return self.fn(*self.args, **self.kwargs)
+        self.lazy_fn = lambda: \
+            self.fn(*self.args, **self.kwargs)  # type: ignore
+
+        if self.kind == 'SINGLETON':
+            self.lazy_fn = once(self.lazy_fn)
 
     def __call__(self):
-        return self.to_lazy()()
+        return self.lazy_fn()()
 
 
 class DependencyBuilder:
-    def __init__(self, container: 'Container', kind=FACTORY, name=None):
+    def __init__(self, container: 'Container', kind: Kind = FACTORY, name=None):
         self.container = container
         self.kind = kind
         self.name = name
@@ -59,9 +60,7 @@ class DependencyBuilder:
         dependency = self.container.get_dependency(name)
         args, kwargs = self.get_dependencies(fn)
 
-        dependency.set_kind(self.kind)
-        dependency.set_fn(fn)
-        dependency.set_args(*args, **kwargs)
+        dependency.set_values(fn, self.kind, *args, **kwargs)
 
         for arg in args:
             if isinstance(arg, Dependency):
@@ -102,7 +101,7 @@ class Container:
     def __init__(self):
         self._dependencies = {}  # type: Dict[str, Dependency]
 
-    def dependency(self, kind=FACTORY, name=None) -> DependencyBuilder:
+    def dependency(self, kind: Kind = FACTORY, name=None) -> DependencyBuilder:
         return DependencyBuilder(self, kind=kind, name=name)
 
     def run(self, dependency: Dependency):
