@@ -9,6 +9,7 @@ include = ["docs/**/*.md", "examples/**/*.py", "tests/**/*.py"]
 
 [tool.poetry.dependencies]
 python = "^3.7"
+typing-extensions = "^3.10.0"
 
 mkdocs = {version = "^1.2.2", optional = true}
 mkdocs-material = {version = "^7.2.5", optional = true}
