@@ -240,6 +240,20 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#install" class="md-nav__link">
+    Install
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usage" class="md-nav__link">
+    Usage
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -308,6 +322,20 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#install" class="md-nav__link">
+    Install
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usage" class="md-nav__link">
+    Usage
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -331,8 +359,48 @@
 <blockquote>
 <p>Inject everything!</p>
 </blockquote>
-<p><a href="https://codecov.io/gh/frndmg/vacuna"><img alt="codecov" src="https://codecov.io/gh/frndmg/vacuna/branch/master/graph/badge.svg?token=L38OHXFKQO" /></a></p>
+<p><img alt="PyPI" src="https://img.shields.io/pypi/v/vacuna" />
+<img alt="PyPI - Python Version" src="https://img.shields.io/pypi/pyversions/vacuna" />
+<img alt="PyPI - Downloads" src="https://img.shields.io/pypi/dm/vacuna" />
+<img alt="PyPI - License" src="https://img.shields.io/pypi/l/vacuna" />
+<a href="https://codecov.io/gh/frndmg/vacuna"><img alt="codecov" src="https://codecov.io/gh/frndmg/vacuna/branch/master/graph/badge.svg?token=L38OHXFKQO" /></a></p>
 <p>Vacuna is a little library to provide dependency management for your python code.</p>
+<h3 id="install">Install<a class="headerlink" href="#install" title="Permanent link">#</a></h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>pip install vacuna
+</code></pre></div>
+</td></tr></table>
+<h3 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">#</a></h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">vacuna</span>
+
+<span class="n">container</span> <span class="o">=</span> <span class="n">vacuna</span><span class="o">.</span><span class="n">Container</span><span class="p">()</span>
+
+<span class="nd">@container</span><span class="o">.</span><span class="n">dependency</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;app&#39;</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">App</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;very important computation&#39;</span><span class="p">)</span>
+
+<span class="nd">@container</span><span class="o">.</span><span class="n">dependency</span><span class="p">()</span>
+<span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">app</span><span class="p">):</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">container</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">)</span>
+</code></pre></div>
+</td></tr></table>
                 
               
               
