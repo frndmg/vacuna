@@ -27,3 +27,25 @@ def main2(container):
 
 def test_singleton(main1, main2):
     assert main1().app is main2().app
+
+
+@pytest.fixture(autouse=True)
+def buz1and2(container):
+    @container.dependency(kind='SINGLETON')
+    def config():
+        return {'path': 'this is the path'}
+
+    class Buz:
+        def __init__(self, path=config['path']):
+            self.path = path
+
+    return (
+        container.dependency(name='buz1')(Buz),
+        container.dependency(name='buz2')(Buz),
+    )
+
+
+def test_lazy_singleton(buz1and2):
+    buz1, buz2 = buz1and2
+
+    assert buz1().path is buz2().path
