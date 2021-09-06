@@ -14,7 +14,6 @@ python = "^3.7"
 typing-extensions = "^3.10.0"
 
 mkdocs = {version = "^1.2.2", optional = true}
-mkdocs-material = {version = "^7.2.5", optional = true}
 mkdocstrings = {version = "^0.15.2", optional = true}
 
 [tool.poetry.dev-dependencies]
@@ -31,7 +30,7 @@ mypy = "^0.910"
 tox = "^3.24.3"
 
 [tool.poetry.extras]
-docs = ["mkdocs", "mkdocs-material", "mkdocstrings"]
+docs = ["mkdocs", "mkdocstrings"]
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

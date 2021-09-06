@@ -7,7 +7,7 @@ nav:
 - Collaborate: COLLABORATE.md
 - Refs: refs.md
 
-theme: material
+theme: readthedocs
 
 plugins:
 - search
@@ -22,15 +22,11 @@ plugins:
             - "!^_"
     watch:
     - vacuna
-    custom_templates: templates
 
 markdown_extensions:
   - toc:
       permalink: "#"
       baselevel: 3
-  - pymdownx.highlight:
-      linenums: true
-  - pymdownx.superfences
   - pymdownx.snippets
   - admonition
   - pymdownx.details
