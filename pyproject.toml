@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "vacuna"
-version = "0.2.1"
+version = "0.2.2"
 description = "Reusable Lightweight Pythonic Dependency Injection Library"
 authors = ["Fernando Martinez Gonzalez <frndmartinezglez@gmail.com>"]
 readme = "docs/README.md"
