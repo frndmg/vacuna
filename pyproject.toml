@@ -7,7 +7,7 @@ readme = "docs/README.md"
 license = "MIT"
 include = ["docs/**/*.md", "examples/**/*.py", "tests/**/*.py"]
 repository = "https://github.com/frndmg/vacuna"
-documentation = "https://frndmg.github.io/vacuna/"
+documentation = "https://vacuna.readthedocs.io/en/latest/"
 
 [tool.poetry.dependencies]
 python = "^3.7"
